@@ -1,0 +1,40 @@
+plugins {
+  id 'java' 
+  id 'java-gradle-plugin'
+  id 'maven-publish'
+  id 'com.github.sherter.google-java-format' version '0.8'
+}
+
+group 'com.loosebazooka'
+
+sourceCompatibility = 1.8
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  testCompile 'junit:junit:4.12'
+}
+
+googleJavaFormat {
+  toolVersion = '1.6'
+}
+check.dependsOn verifyGoogleJavaFormat
+
+gradlePlugin {
+  plugins {
+    monolith {
+      id = 'com.loosebazooka.consolidate'
+      displayName = 'Consolidate'
+      description = 'Consilidate multiple gradle projects as a single artifact'
+      implementationClass = 'com.loosebazooka.gradle.consolidate.ConsolidatePlugin'
+    }
+  }
+}
+
+publishing {
+  repositories {
+    mavenLocal()
+  }
+}
