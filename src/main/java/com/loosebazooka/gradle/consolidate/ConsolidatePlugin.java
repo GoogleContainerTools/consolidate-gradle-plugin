@@ -45,8 +45,7 @@ public class ConsolidatePlugin implements Plugin<Project> {
   }
 
   private void createConfiguration(Project project) {
-    Configuration configuration =
-        project.getConfigurations().create(CONSOLIDATE_CONFIGURATION);
+    Configuration configuration = project.getConfigurations().create(CONSOLIDATE_CONFIGURATION);
 
     // each time a dependency is added make sure we process it
     configuration
@@ -70,7 +69,8 @@ public class ConsolidatePlugin implements Plugin<Project> {
 
               DependencyHandler projectDependencies = project.getDependencies();
 
-              projectDependencies.add(JavaPlugin.COMPILE_ONLY_CONFIGURATION_NAME, projectDependency);
+              projectDependencies.add(
+                  JavaPlugin.COMPILE_ONLY_CONFIGURATION_NAME, projectDependency);
               projectDependencies.add(
                   JavaPlugin.TEST_IMPLEMENTATION_CONFIGURATION_NAME, dependencyProjectMainOutput);
 
@@ -83,7 +83,9 @@ public class ConsolidatePlugin implements Plugin<Project> {
                           projectDependencies.add(
                               JavaPlugin.IMPLEMENTATION_CONFIGURATION_NAME, dependency1));
               Configuration sourceProjectApiConfig =
-                  dependencyProject.getConfigurations().findByName(JavaPlugin.API_CONFIGURATION_NAME);
+                  dependencyProject
+                      .getConfigurations()
+                      .findByName(JavaPlugin.API_CONFIGURATION_NAME);
               if (sourceProjectApiConfig != null) {
                 sourceProjectApiConfig
                     .getDependencies()
@@ -131,7 +133,8 @@ public class ConsolidatePlugin implements Plugin<Project> {
     return (ProjectDependency) dependency;
   }
 
-  private void verifyProjectDependencyUsesDefaultConfiguration(ProjectDependency projectDependency) {
+  private void verifyProjectDependencyUsesDefaultConfiguration(
+      ProjectDependency projectDependency) {
     String targetConfiguration = projectDependency.getTargetConfiguration();
     if (targetConfiguration != null
         && !targetConfiguration.equals(Dependency.DEFAULT_CONFIGURATION)) {

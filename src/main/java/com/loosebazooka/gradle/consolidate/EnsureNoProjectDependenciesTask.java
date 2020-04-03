@@ -39,15 +39,20 @@ public class EnsureNoProjectDependenciesTask extends DefaultTask {
     this.project = project;
   }
 
-  @Input
   public void setConfiguration(String configuration) {
     this.configuration = configuration;
   }
 
+  @Input
   public String getConfiguration() {
     return configuration;
   }
 
+  /**
+   * Ensure no project dependencies are included in the {@link #configuration}.
+   *
+   * @throws GradleException if any projects are found
+   */
   @TaskAction
   public void ensureNoProjectDependencies() {
     List<ProjectComponentIdentifier> projectDependencies =
